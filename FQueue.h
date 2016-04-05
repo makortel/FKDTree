@@ -9,6 +9,7 @@
 #define FKDTREE_QUEUE_H_
 
 #include <vector>
+#include <cassert>
 
 template<class T>
 
@@ -150,7 +151,7 @@ public:
 
 		}
 #endif
-
+                assert(theSize < theBuffer.size());
 		theBuffer[theTail] = value;
 		theTail = (theTail + 1) % theCapacity;
 
