@@ -1,5 +1,5 @@
-CFLAGS= -std=c++11 -ftree-vectorize -march=native -ffast-math -Ofast -mtune=native -I/cvmfs/cms.cern.ch/slc6_amd64_gcc530/external/tbb/44_20151115oss/include -g
-LIBS = -ltbb -L/cvmfs/cms.cern.ch/slc6_amd64_gcc530/external/tbb/44_20151115oss/lib -lrt
+CFLAGS= -std=c++11 -ftree-vectorize -march=native -ffast-math -Ofast -mtune=native -g
+LIBS = -ltbb -lrt
 
 CUDAOBJECT =
 USE_CUDA = NO
