@@ -44,7 +44,7 @@ all: kdtree
 searchInTheBoxCuda.o: searchInTheBoxCuda.cu
 	$(NVCC) $(CUDAHEADERS) $(CUDAFLAGS) -c -Xcompiler $(CUDACFLAGS) searchInTheBoxCuda.cu
 
-kdtree: $(CUDAOBJECT) main.cpp
+kdtree: $(CUDAOBJECT) $(wildcard *.cpp) $(wildcard *.h)
 	$(CC) main.cpp $(CFLAGS) $(CUDAFLAGS) $(OPENCLFLAGS) -o kdtree $(CUDAHEADERS) $(CUDALIBS) $(LIBS) $(OPENCLLIBS) $(CUDAOBJECT)
 
 clean:
