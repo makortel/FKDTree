@@ -576,7 +576,7 @@ private:
 			int dimension) const
 	{
 		return (theDimensions[dimension][index] <= maxPoint[dimension]
-				&& theDimensions[dimension][index] >= minPoint[dimension]);
+				& theDimensions[dimension][index] >= minPoint[dimension]);
 	}
 
 	bool is_in_the_box(unsigned int index,
@@ -586,7 +586,7 @@ private:
 		for (unsigned int i = 0; i < numberOfDimensions; ++i)
 		{
 			if ((theDimensions[i][index] <= maxPoint[i]
-					&& theDimensions[i][index] >= minPoint[i]) == false)
+					& theDimensions[i][index] >= minPoint[i]) == false)
 				return false;
 		}
 
