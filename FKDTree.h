@@ -583,14 +583,13 @@ private:
 			const FKDPoint<TYPE, numberOfDimensions>& minPoint,
 			const FKDPoint<TYPE, numberOfDimensions>& maxPoint) const
 	{
+          bool ret = true;
 		for (unsigned int i = 0; i < numberOfDimensions; ++i)
 		{
-			if ((theDimensions[i][index] <= maxPoint[i]
-					& theDimensions[i][index] >= minPoint[i]) == false)
-				return false;
+                  ret &= (theDimensions[i][index] >= minPoint[i] & theDimensions[i][index] <= maxPoint[i]);
 		}
 
-		return true;;
+		return ret;
 	}
 
 	unsigned int theNumberOfPoints;
