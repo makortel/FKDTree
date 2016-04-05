@@ -153,7 +153,9 @@ public:
 #endif
                 assert(theSize < theBuffer.size());
 		theBuffer[theTail] = value;
-		theTail = (theTail + 1) % theCapacity;
+		//theTail = (theTail + 1) % theCapacity;
+                theTail++;
+                theTail -= (theTail >= theBuffer.size()) * theBuffer.size(); // go circular
 
 		theSize++;
 
@@ -173,7 +175,9 @@ public:
 		if (theSize > 0)
 		{
 			T element = theBuffer[theFront];
-			theFront = (theFront + 1) % theCapacity;
+			//theFront = (theFront + 1) % theCapacity;
+                        theFront++;
+                        theFront -= (theFront >= theBuffer.size()) * theBuffer.size(); // go circular
 			theSize--;
 
 
@@ -187,7 +191,9 @@ public:
 				theSize > numberOfElementsToPop ?
 						numberOfElementsToPop : theSize;
 		theSize -= elementsToErase;
-		theFront = (theFront + elementsToErase) % theCapacity;
+		//theFront = (theFront + elementsToErase) % theCapacity;
+                theFront += elementsToErase;
+                theFront -= (theFront >= theBuffer.size()) * theBuffer.size(); // go circular
 	}
 
 	void reserve(unsigned int capacity)
@@ -206,7 +212,9 @@ public:
 
 	T & operator[](unsigned int index)
 	{
-		return theBuffer[(theFront + index) % theCapacity];
+          //return theBuffer[(theFront + index) % theCapacity];
+          auto sum = theFront + index;
+          return theBuffer[sum - (sum >= theBuffer.size())*theBuffer.size()];
 	}
 
 	void clear()
