@@ -8,7 +8,7 @@ USE_OPENCL = NO
 CC=g++
 NVCC=nvcc
 ###CUDA TEST
-NVCC_RESULT := $(shell which nvcc 2> NULL)
+NVCC_RESULT := $(shell which nvcc 2> /dev/null)
 NVCC_TEST := $(notdir $(NVCC_RESULT))
 
 
@@ -44,7 +44,7 @@ all: kdtree
 searchInTheBoxCuda.o: searchInTheBoxCuda.cu
 	$(NVCC) $(CUDAHEADERS) $(CUDAFLAGS) -c -Xcompiler $(CUDACFLAGS) searchInTheBoxCuda.cu
 
-kdtree: $(CUDAOBJECT)
+kdtree: $(CUDAOBJECT) main.cpp
 	$(CC) main.cpp $(CFLAGS) $(CUDAFLAGS) $(OPENCLFLAGS) -o kdtree $(CUDAHEADERS) $(CUDALIBS) $(LIBS) $(OPENCLLIBS) $(CUDAOBJECT)
 
 clean:
