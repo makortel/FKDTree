@@ -191,7 +191,7 @@ public:
 
 				if (intersection)
 				{
-					if (is_in_the_box(index, minPoint, maxPoint))
+                                  if (is_in_the_box(index, minPoint, maxPoint, dimension))
 					{
 						foundPoints.emplace_back(theIds[index]);
 					}
@@ -250,7 +250,7 @@ public:
 
 			if (intersection)
 			{
-				if (is_in_the_box(index, minPoint, maxPoint))
+                          if (is_in_the_box(index, minPoint, maxPoint, dimension))
 				{
 					foundPoints.emplace_back(theIds[index]);
 				}
@@ -303,7 +303,7 @@ public:
 				index = indecesToVisit[visitedIndecesThisDepth];
 				intersection = intersects(index, minPoint, maxPoint, dimension);
 
-				if (intersection && is_in_the_box(index, minPoint, maxPoint))
+				if (intersection && is_in_the_box(index, minPoint, maxPoint, dimension))
 					result.push_back(theIds[index]);
 
 				isLowerThanBoxMin = theDimensions[dimension][index]
@@ -347,7 +347,7 @@ public:
 		int numberOfSonsToVisitNext;
 		if (intersection)
 		{
-			if (is_in_the_box(index, minPoint, maxPoint))
+                  if (is_in_the_box(index, minPoint, maxPoint, dimension))
 			{
 				foundPoints.emplace_back(theIds[index]);
 			}
@@ -580,17 +580,22 @@ private:
 	}
 
 	bool is_in_the_box(unsigned int index,
-			const FKDPoint<TYPE, numberOfDimensions>& minPoint,
-			const FKDPoint<TYPE, numberOfDimensions>& maxPoint) const
+                           const FKDPoint<TYPE, numberOfDimensions>& minPoint,
+                           const FKDPoint<TYPE, numberOfDimensions>& maxPoint
+                           , int dimension
+                           ) const
 	{
-		for (unsigned int i = 0; i < numberOfDimensions; ++i)
-		{
-			if ((theDimensions[i][index] <= maxPoint[i]
-					& theDimensions[i][index] >= minPoint[i]) == false)
+          bool ret = true;
+          for (unsigned int i = 0; i < numberOfDimensions; ++i)
+            {
+              if(i == dimension)
+                continue;
+
+              if ((theDimensions[i][index] <= maxPoint[i]
+                   && theDimensions[i][index] >= minPoint[i]) == false)
 				return false;
 		}
-
-		return true;;
+                return ret;
 	}
 
 	unsigned int theNumberOfPoints;
