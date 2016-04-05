@@ -648,12 +648,12 @@ int main(int argc, char* argv[])
 			for (unsigned int iteration = 0; iteration < numberOfIterations;
 					++iteration)
 			{
-				tbb::parallel_for(0, nPoints, 1, [&](unsigned int i)
-//				for (int i = 0; i < nPoints; ++i)
+                          //tbb::parallel_for(0, nPoints, 1, [&](unsigned int i)
+				for (int i = 0; i < nPoints; ++i)
 						{
 							kdtree.search_in_the_box(minPoints[i], maxPoints[i]);
-						});
-//				}
+                                                        //});
+				}
 			}
 			tbb::tick_count end_searching = tbb::tick_count::now();
 			std::cout << "searching points using FKDTree took "
@@ -695,13 +695,13 @@ int main(int argc, char* argv[])
 				for (unsigned int iteration = 0; iteration < numberOfIterations;
 						++iteration)
 				{
-					tbb::parallel_for(0, nPoints, 1, [&](unsigned int i)
-//				for (int i = 0; i < nPoints; ++i)
+                                  //tbb::parallel_for(0, nPoints, 1, [&](unsigned int i)
+				for (int i = 0; i < nPoints; ++i)
 							{
 
 								std::vector<unsigned int> foundPoints= kdtree.search_in_the_box_branchless(minPoints[i], maxPoints[i]);
-							});
-//				}
+                                                                //							});
+				}
 				}
 				tbb::tick_count end_searching = tbb::tick_count::now();
 				std::cout << "searching points using branchless FKDTree took "
@@ -744,13 +744,13 @@ int main(int argc, char* argv[])
 				for (unsigned int iteration = 0; iteration < numberOfIterations;
 						++iteration)
 				{
-					tbb::parallel_for(0, nPoints, 1, [&](unsigned int i)
-//				for (int i = 0; i < nPoints; ++i)
+                                  //tbb::parallel_for(0, nPoints, 1, [&](unsigned int i)
+				for (int i = 0; i < nPoints; ++i)
 							{
 
 								std::vector<unsigned int> foundPoints= kdtree.search_in_the_box_BFS(minPoints[i], maxPoints[i]);
-							});
-//				}
+                                                                //});
+				}
 				}
 				tbb::tick_count end_searching = tbb::tick_count::now();
 				std::cout << "searching points using BFS FKDTree took "
@@ -793,14 +793,14 @@ int main(int argc, char* argv[])
 				for (unsigned int iteration = 0; iteration < numberOfIterations;
 						++iteration)
 				{
-					tbb::parallel_for(0, nPoints, 1, [&](unsigned int i)
-//				for (int i = 0; i < nPoints; ++i)
+                                  //tbb::parallel_for(0, nPoints, 1, [&](unsigned int i)
+				for (int i = 0; i < nPoints; ++i)
 							{
 								std::vector<unsigned int> foundPoints;
 
 								kdtree.search_in_the_box_recursive(minPoints[i], maxPoints[i],foundPoints);
-							});
-//				}
+                                                                //});
+				}
 				}
 				tbb::tick_count end_searching = tbb::tick_count::now();
 				std::cout << "searching points using recursive FKDTree took "
