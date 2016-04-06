@@ -124,6 +124,10 @@ public:
 		return theBuffer[theTail];
 	}
 
+  constexpr unsigned int wrapIndex(unsigned int i) {
+    return i & (theBuffer.size()-1);
+  }
+
 	void push_back(const T & value)
 	{
 #ifdef USE_VECTOR
@@ -153,7 +157,7 @@ public:
 #endif
                 assert(theSize < theBuffer.size());
 		theBuffer[theTail] = value;
-		theTail = (theTail + 1) % theCapacity;
+		theTail = wrapIndex(theTail + 1);
 
 		theSize++;
 
@@ -173,7 +177,7 @@ public:
 		if (theSize > 0)
 		{
 			T element = theBuffer[theFront];
-			theFront = (theFront + 1) % theCapacity;
+			theFront = wrapIndex(theFront + 1);
 			theSize--;
 
 
@@ -187,7 +191,7 @@ public:
 				theSize > numberOfElementsToPop ?
 						numberOfElementsToPop : theSize;
 		theSize -= elementsToErase;
-		theFront = (theFront + elementsToErase) % theCapacity;
+		theFront = wrapIndex(theFront + elementsToErase);
 	}
 
 	void reserve(unsigned int capacity)
@@ -206,7 +210,7 @@ public:
 
 	T & operator[](unsigned int index)
 	{
-		return theBuffer[(theFront + index) % theCapacity];
+		return theBuffer[wrapIndex(theFront + index)];
 	}
 
 	void clear()
