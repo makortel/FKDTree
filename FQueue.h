@@ -225,7 +225,7 @@ private:
 #ifdef USE_VECTOR
 	std::vector<T> theBuffer;
 #endif
-        std::array<T, 1000> theBuffer;
+        std::array<T, 1024> theBuffer;
 	unsigned int theCapacity;
 
 };
